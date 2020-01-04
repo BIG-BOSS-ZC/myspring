@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.myspring.day1.bean.User">
+        <property name="id" value="1008611"></property>
+        <property name="name" value="liuzhonglin"></property>
+    </bean>
+    <bean id="userDao" class="com.myspring.day1.dao.impl.UserDaoImpl" />
+    <bean id="userService" class="com.myspring.day1.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao" />
+    </bean>
+    <bean id="client" class="com.myspring.day1.app.Client">
+        <property name="userService" ref="userService" />
+    </bean>
+
+    <bean id="myTest1" class="com.myspring.day3.myAnotation.MyTest1" />
+    <bean id="myTest3" class="com.myspring.day3.myAnotation.MyTest3"
+    init-method="init" destroy-method="destroy"/>
+
+</beans>

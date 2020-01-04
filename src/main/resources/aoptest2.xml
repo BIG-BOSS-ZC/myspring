@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--被代理bean-->
+    <bean id="userService" class="com.myspring.day5.nono.UserServiceImpl" />
+
+    <!--  代理通知bean  -->
+    <bean id="logAdvice" class="com.myspring.day6.simple.LogAdvice" />
+    <!--    环绕切口-->
+    <bean id="aroundAdvice" class="com.myspring.day6.simple.AroundAdvice" />
+
+    <aop:config>
+        <!--        给UserServiceImpl的所有方法添加log信息-->
+        <aop:aspect ref="logAdvice">
+            <aop:pointcut id="log" expression="execution(* com..nono.UserServiceImpl.*(..))"/>
+            <aop:after method="logger" pointcut-ref="log" />
+        </aop:aspect>
+        <aop:aspect ref="aroundAdvice">
+            <aop:pointcut id="sssss" expression="execution(* com..nono.UserServiceImpl*(..))"/>
+            <aop:around method="around" pointcut-ref="sssss" />
+        </aop:aspect>
+    </aop:config>
+
+</beans>

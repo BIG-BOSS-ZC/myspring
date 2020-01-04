@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="com.myspring.day5.nono.UserServiceImpl"/>
+    <!--  代理通知bean  -->
+    <bean id="logAdvice" class="com.myspring.day5.springaop.xml.LogAdvice" />
+
+    <bean id="beforeLogAdvice" class="com.myspring.day5.springaop.xml.BeforeLogAdvice" />
+
+    <!--    可以通过advisor指定匹配哪些方法-->
+    <bean id="logAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="advice" ref="logAdvice" />
+        <property name="mappedNames" value="deleteUser, createUser" />
+    </bean>
+    <bean id="beforeLogAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="advice" ref="beforeLogAdvice" />
+        <property name="mappedNames" value="deleteUser, createUser" />
+    </bean>
+    <!--  代理工厂bean  -->
+    <bean id="userServiceProxy" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+    </bean>
+
+</beans>
